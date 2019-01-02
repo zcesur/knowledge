@@ -136,20 +136,27 @@ sysctl net.ipv4.ip_forward
 sysctl -w net.ipv4.ip_forward=1
 ```
 
-# Filesystem
-### ACL - an additional, more flexible permission mechanism for file systems
-* [POSIX ACLs](https://wiki.archlinux.org/index.php/Access_Control_Lists)
+# Access Control
+### [User management](https://wiki.archlinux.org/index.php/users_and_groups#User_management)
+```
+adduser $user
+usermod -aG $group $user
+```
+
+### [ACL](https://wiki.archlinux.org/index.php/Access_Control_Lists) - an additional, more flexible permission mechanism for file systems
+* POSIX ACLs
 ```
 getfacl $path
 setfacl -m u:$user:rwx $path
 ```
 
-* [NFSv4 ACLs](https://linux.die.net/man/5/nfs4_acl)
+* NFSv4 ACLs
 ```
 nfs4_getfacl $path
 nfs4_setfacl -a A::$user:RWX $path
 ```
 
+# Filesystem
 ### Status of mounted/exported filesystems
 ```console
 root@nfs-server:/# cat /proc/fs/nfs/exports
