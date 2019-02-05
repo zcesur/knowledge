@@ -66,6 +66,10 @@ gcloud container clusters update cluster-1 \
     --min-nodes 1 \
     --max-nodes 10 \
     --node-pool default-pool
+
+gcloud container clusters resize cluster-1 \
+    --size 3 \
+    --node-pool default-pool
 ```
 
 * Get number of available images in each node

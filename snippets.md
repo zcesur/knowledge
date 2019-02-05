@@ -1,0 +1,127 @@
+### find
+```bash
+find . -name '*.ts' -print0 | sort -z
+find . -type f -print0 | xargs -0 cmd
+find . -type d -print0 | while IFS= read -r -d '' dir; do
+    echo "$dir"
+done
+```
+
+### while/for
+```
+while IFS= read -r line || [[ -n "$line" ]]; do
+    echo "$line"
+done
+```
+
+### grep/sed/awk
+```
+grep -InH 'pattern' <file
+sed -n 's/pattern/&/p' <file
+```
+
+### ffmpeg
+```
+chunks=$(
+    find . -name '*.ts' -print0 |
+        sort -z |
+        sed -e 's/\x0$//' |
+        sed -e 's/\x0/|/g'
+)
+ffmpeg -i "concat:$chunks" -c copy output.ts
+
+ffmpeg -v error -i input.ts -f null - 2>error.log
+```
+
+### ssh/scp
+```
+ssh 192.168.2.193 -P 8022
+scp -P 8022 doc 192.168.2.193:/storage/emulated/0/Documents
+
+ssh -TNfL port:host:hostport user@host
+
+ssh -TND 4711 user@host
+```
+
+### openssl
+```
+openssl rand -hex 32
+openssl enc -base64    <<< str
+openssl enc -base64 -d <<< str
+```
+
+### git
+```
+git submodule add $repo $path
+git submodule foreach git pull origin master
+```
+
+### tar
+```
+tar xvzf file.tar.gz
+tar xvjf file.tar.bz2
+tar xvf file.tar
+```
+
+### test
+#### supported by [ and [[
+* `-e FILE:` True if file exists.
+* `-f FILE:` True if file is a regular file.
+* `-d FILE:` True if file is a directory.
+* `-h FILE:` True if file is a symbolic link.
+* `-p PIPE:` True if pipe exists.
+* `-r FILE:` True if file is readable by you.
+* `-s FILE:` True if file exists and is not empty.
+* `-t FD :` True if FD is opened on a terminal.
+* `-w FILE:` True if the file is writable by you.
+* `-x FILE:` True if the file is executable by you.
+* `-O FILE:` True if the file is effectively owned by you.
+* `-G FILE:` True if the file is effectively owned by your group.
+* `FILE -nt FILE:` True if the first file is newer than the second.
+* `FILE -ot FILE:` True if the first file is older than the second.
+
+* `-z STRING:` True if the string is empty (it's length is zero).
+* `-n STRING:` True if the string is not empty (it's length is not zero).
+* `STRING = STRING:` True if the first string is identical to the second.
+* `STRING != STRING:` True if the first string is not identical to the second.
+* `STRING < STRING:` True if the first string sorts before the second.
+* `STRING > STRING:` True if the first string sorts after the second.
+* `! EXPR:` Inverts the result of the expression (logical NOT).
+
+* `INT -eq INT:` True if both integers are identical.
+* `INT -ne INT:` True if the integers are not identical.
+* `INT -lt INT:` True if the first integer is less than the second.
+* `INT -gt INT:` True if the first integer is greater than the second.
+* `INT -le INT:` True if the first integer is less than or equal to the second.
+* `INT -ge INT:` True if the first integer is greater than or equal to the second.
+
+#### supported only by [[
+* `STRING = (or ==) PATTERN:` Not string comparison like with [ (or test), but pattern matching is performed. True if the string matches the glob pattern.
+* `STRING != PATTERN:` Not string comparison like with [ (or test), but pattern matching is performed. True if the string does not match the glob pattern.
+* `STRING =~ REGEX:` True if the string matches the regex pattern.
+* `( EXPR ):` Parentheses can be used to change the evaluation precedence.
+* `EXPR && EXPR:` Much like the '-a' operator of test, but does not evaluate the second expression if the first already turns out to be false.
+* `EXPR || EXPR:` Much like the '-o' operator of test, but does not evaluate the second expression if the first already turns out to be true.
+
+#### supported only by [
+* `EXPR -a EXPR:` True if both expressions are true (logical AND).
+* `EXPR -o EXPR:` True if either expression is true (logical OR).
+
+### I/O
+**File Descriptor:** A numeric index referring to one of a process's open files. Each command has at least three basic descriptors: FD 0 is `stdin`, FD 1 is `stdout` and FD 2 is `stderr`.
+
+```
+echo 'Something bad happened' >&2
+exit 1
+```
+
+### Disk
+```
+lsblk
+parted -l
+df -H
+lshw -class disk
+
+mkdir /media/usbstick
+mount -t vfat /dev/sdb1 /media/usbstick
+```
