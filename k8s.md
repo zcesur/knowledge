@@ -23,10 +23,3 @@ While `PersistentVolumeClaims` allow a user to consume abstract storage resource
 ### [Configure a Pod to Use a ConfigMap](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/)
 
 ConfigMaps allow you to decouple configuration artifacts from image content to keep containerized applications portable.
-
-## Access Applications in a Cluster
-
-### [Use Port Forwarding to Access Applications in a Cluster](https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
-```
-kubectl port-forward $pod 3000:3000
-```
