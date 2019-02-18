@@ -1,5 +1,5 @@
 ### find
-```bash
+```
 find . -name '*.ts' -print0 | sort -z
 find . -type f -print0 | xargs -0 cmd
 find . -type d -print0 | while IFS= read -r -d '' dir; do
@@ -107,6 +107,21 @@ tar xvf file.tar
 * `EXPR -a EXPR:` True if both expressions are true (logical AND).
 * `EXPR -o EXPR:` True if either expression is true (logical OR).
 
+### man
+```
+# 1 Executable programs or shell commands
+# 2 System calls (functions provided by the kernel)
+# 3 Library calls (functions within program libraries)
+# 4 Special files (usually found in /dev)
+# 5 File formats and conventions eg /etc/passwd
+# 6 Games
+# 7 Miscellaneous (including macro packages and conventions), e.g.  man(7), groff(7)
+# 8 System administration commands (usually only for root)
+# 9 Kernel routines [Non standard]
+
+man 7 hier
+```
+
 ### I/O
 **File Descriptor:** A numeric index referring to one of a process's open files. Each command has at least three basic descriptors: FD 0 is `stdin`, FD 1 is `stdout` and FD 2 is `stderr`.
 
@@ -124,4 +139,51 @@ lshw -class disk
 
 mkdir /media/usbstick
 mount -t vfat /dev/sdb1 /media/usbstick
+```
+
+### VNC
+```
+x11vnc -display :0
+```
+
+### gcloud
+```
+gcloud config set project $project_id
+gcloud config set compute/zone $zone
+gcloud config set container/cluster $cluster
+```
+
+```
+gcloud container clusters list
+gcloud container node-pools list
+gcloud container clusters update $cluster \
+    --enable-autoscaling \
+    --min-nodes 1 \
+    --max-nodes 10 \
+    --node-pool $node-pool
+gcloud container clusters resize $cluster \
+    --size 3 \
+    --node-pool $node-pool
+```
+
+```
+instance=$(gcloud compute instances list | awk 'NR==2{print $1}')
+gcloud compute instances list
+gcloud compute ssh "$instance" -- -TND 5000
+```
+
+```
+gcloud builds submit --tag gcr.io/$PROJECT_ID/$IMAGE_NAME:$TAG path/to/dir
+```
+
+### kubectl
+```
+kubectl port-forward $pod 3000:3000
+```
+
+* Get number of available images in each node
+```
+for node in $(kubectl get nodes | awk '/gke-cluster/ {print $1}'); do
+    kubectl get node $node -o json | grep --count "sizeBytes"
+done
 ```
