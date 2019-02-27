@@ -33,14 +33,16 @@ ffmpeg -i "concat:$chunks" -c copy output.ts
 ffmpeg -v error -i input.ts -f null - 2>error.log
 ```
 
-### ssh/scp
+### ssh
 ```
-ssh 192.168.2.193 -P 8022
-scp -P 8022 doc 192.168.2.193:/storage/emulated/0/Documents
+ssh -P port user@host
+ssh -t user@host /bin/sh
+scp -P port doc host:path
+ssh-copy-id -i ~/.ssh/id_rsa.pub user@host
 
 ssh -TNfL port:host:hostport user@host
-
 ssh -TND 4711 user@host
+sshuttle --dns -r user@host 0/0
 ```
 
 ### openssl
@@ -48,6 +50,12 @@ ssh -TND 4711 user@host
 openssl rand -hex 32
 openssl enc -base64    <<< str
 openssl enc -base64 -d <<< str
+```
+
+### gpg
+```
+gpg --import signing_key.pub
+gpg --verify signed_file.sig
 ```
 
 ### git
@@ -58,9 +66,24 @@ git submodule foreach git pull origin master
 
 ### tar
 ```
-tar xvzf file.tar.gz
-tar xvjf file.tar.bz2
-tar xvf file.tar
+tar -xvzf file.tar.gz -C $dir
+tar -xvjf file.tar.bz2
+tar -xvf file.tar
+
+tar -cvf file.tar -C $dir .
+```
+
+### systemctl
+```
+systemctl daemon-reload
+systemctl enable $unit
+systemctl start $unit
+
+systemctl get-default
+systemctl set-default rescue.target
+
+systemctl list-unit-files | grep enabled
+systemctl list-dependencies graphical.target
 ```
 
 ### test
@@ -134,16 +157,41 @@ exit 1
 ```
 lsblk
 parted -l
-df -H
+df -h
+cat /proc/mounts
+cat /proc/partitions
 lshw -class disk
 
-mkdir /media/usbstick
 mount -t vfat /dev/sdb1 /media/usbstick
+
+dd if=/dev/sda1 of=~/data.dd
+mount -t ext4 -o loop,ro,noexec data.dd /mnt/data
+```
+
+### rsync
+```
+rsync -a --delete src dst
+rsync remote:src dst
+rsync src remote:dst
 ```
 
 ### VNC
 ```
 x11vnc -display :0
+```
+
+### heimdall
+```
+heimdall detect
+heimdall print-pit --verbose
+heimdall download-pit --output android.pit
+heimdall flash --RECOVERY recovery.img
+heimdall flash --BOOT boot.img --verbose
+```
+
+### adb
+```
+echo -n 'mtp,adb' > /data/property/persist.sys.usb.config
 ```
 
 ### gcloud
