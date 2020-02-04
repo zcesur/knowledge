@@ -1,3 +1,6 @@
+---
+Title: Miscellaneous
+---
 https://en.wikipedia.org/wiki/Netlify
 ## Netlify CMS
 To address some of the limitations of static websites, which tend to be less sophisticated and harder to use for the website maintainer than a dynamic content publishing solution such as WordPress or Medium, Netlify develops its own open source headless content management system called Netlify CMS.

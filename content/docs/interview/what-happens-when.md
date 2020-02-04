@@ -1,4 +1,7 @@
-## What happens when...
+---
+Title: What Happens When
+---
+# [What happens when...](https://github.com/alex/what-happens-when)
 
 This repository is an attempt to answer the age old interview question
 \"What happens when you type google.com into your browser\'s address box
@@ -7,7 +10,7 @@ and press enter?\"
 Except instead of the usual story, we\'re going to try to answer this
 question in as much detail as possible. No skipping out on anything.
 
-### The "g" key is pressed
+## The "g" key is pressed
 
 The following sections explain the physical keyboard actions and the OS
 interrupts. When you press the key \"g\" the browser receives the event
@@ -20,7 +23,7 @@ whole. As you are typing \"google.com\" many blocks of code run and the
 suggestions will be refined with each key press. It may even suggest
 \"google.com\" before you finish typing it.
 
-### The "enter" key bottoms out
+## The "enter" key bottoms out
 
 To pick a zero point, let\'s choose the Enter key on the keyboard
 hitting the bottom of its range. At this point, an electrical circuit
@@ -71,7 +74,7 @@ connection, but historically has been over PS/2 or ADB connections.
 -   This interrupt notifies the current focused application of a \'key
     pressed\' event.
 
-### Interrupt fires [NOT for USB keyboards]
+## Interrupt fires [NOT for USB keyboards]
 
 The keyboard sends signals on its interrupt request line (IRQ), which is
 mapped to an `interrupt vector` (integer) by the interrupt controller.
@@ -81,7 +84,7 @@ kernel. When an interrupt arrives, the CPU indexes the IDT with the
 interrupt vector and runs the appropriate handler. Thus, the kernel is
 entered.
 
-### (On Windows) A `WM_KEYDOWN` message is sent to the app
+## (On Windows) A `WM_KEYDOWN` message is sent to the app
 
 The HID transport passes the key down event to the `KBDHID.sys` driver
 which converts the HID usage into a scancode. In this case the scan code
@@ -113,7 +116,7 @@ messages. This code looks within the 3rd parameter that was passed to
 `SendMessage` (`wParam`) and, because it is `VK_RETURN` knows the user
 has hit the ENTER key.
 
-### (On OS X) A `KeyDown` NSEvent is sent to the app
+## (On OS X) A `KeyDown` NSEvent is sent to the app
 
 The interrupt signal triggers an interrupt event in the I/O Kit kext
 keyboard driver. The driver translates the signal into a key code which
@@ -125,7 +128,7 @@ sufficient privileges calling the `mach_ipc_dispatch` function. This
 most commonly occurs through, and is handled by, an `NSApplication` main
 event loop, via an `NSEvent` of `NSEventType` `KeyDown`.
 
-### (On GNU/Linux) the Xorg server listens for keycodes
+## (On GNU/Linux) the Xorg server listens for keycodes
 
 When a graphical `X server` is used, `X` will use the generic event
 driver `evdev` to acquire the keypress. A re-mapping of keycodes to
@@ -136,7 +139,7 @@ the character to the `window manager` (DWM, metacity, i3, etc), so the
 graphical API of the window that receives the character prints the
 appropriate font symbol in the appropriate focused field.
 
-### Parse URL
+## Parse URL
 
 -   The browser now has the following information contained in the URL
     (Uniform Resource Locator):
@@ -153,7 +156,7 @@ appropriate font symbol in the appropriate focused field.
     >
     >     :   Retrieve main (index) page
     >
-### Is it a URL or a search term?
+## Is it a URL or a search term?
 
 When no protocol or valid domain name is given the browser proceeds to
 feed the text given in the address box to the browser\'s default web
@@ -161,7 +164,7 @@ search engine. In many cases the URL has a special piece of text
 appended to it to tell the search engine that it came from a particular
 browser\'s URL bar.
 
-### Convert non-ASCII Unicode characters in hostname
+## Convert non-ASCII Unicode characters in hostname
 
 -   The browser checks the hostname for characters that are not in
     `a-z`, `A-Z`, `0-9`, `-`, or `.`.
@@ -170,7 +173,7 @@ browser\'s URL bar.
     [Punycode](https://en.wikipedia.org/wiki/Punycode) encoding to the
     hostname portion of the URL.
 
-### Check HSTS list
+## Check HSTS list
 
 -   The browser checks its \"preloaded HSTS (HTTP Strict Transport
     Security)\" list. This is a list of websites that have requested to
@@ -185,7 +188,7 @@ browser\'s URL bar.
     attack](http://en.wikipedia.org/wiki/SSL_stripping), which is why
     the HSTS list is included in modern web browsers.)
 
-### DNS lookup
+## DNS lookup
 
 -   Browser checks if the domain is in its cache. (to see the DNS Cache
     in Chrome, go to <chrome://net-internals/#dns>).
@@ -203,7 +206,7 @@ browser\'s URL bar.
 -   If the DNS server is on a different subnet, the network library
     follows the `ARP process` below for the default gateway IP.
 
-### ARP process
+## ARP process
 
 In order to send an ARP (Address Resolution Protocol) broadcast the
 network stack library needs the target IP address to look up. It also
@@ -273,7 +276,7 @@ or the default gateway it can resume its DNS process:
     search is requested and that flows up the list of DNS servers until
     the SOA is reached, and if found an answer is returned.
 
-### Opening of a socket
+## Opening of a socket
 
 Once the browser receives the IP address of the destination server, it
 takes that and the given port number from the URL (the HTTP protocol
@@ -367,7 +370,7 @@ connection flow:
         -   The other sides ACKs the FIN packet and sends its own FIN
         -   The closer acknowledges the other side\'s FIN with an ACK
 
-### TLS handshake
+## TLS handshake
 
 -   The client computer sends a `ClientHello` message to the server with
     its Transport Layer Security (TLS) version, list of cipher
@@ -394,7 +397,7 @@ connection flow:
 -   From now on the TLS session transmits the application (HTTP) data
     encrypted with the agreed symmetric key.
 
-### HTTP protocol
+## HTTP protocol
 
 If the web browser used was written by Google, instead of sending an
 HTTP request to retrieve the page, it will send a request to try and
@@ -463,7 +466,7 @@ resolving the other domain, and follows all steps up to this point for
 that domain. The `Host` header in the request will be set to the
 appropriate server name instead of `google.com`.
 
-### HTTP Server Request Handle
+## HTTP Server Request Handle
 
 The HTTPD (HTTP Daemon) server is the one handling the
 requests/responses on the server side. The most common HTTPD servers are
@@ -499,7 +502,7 @@ Apache or nginx for Linux and IIS for Windows.
     running on PHP, the server uses PHP to interpret the index file, and
     streams the output to the client.
 
-### Behind the scenes of the Browser
+## Behind the scenes of the Browser
 
 Once the server supplies the resources (HTML, CSS, JS, images, etc.) to
 the browser it undergoes the below process:
@@ -508,7 +511,7 @@ the browser it undergoes the below process:
 -   Rendering - Construct DOM Tree → Render Tree → Layout of Render Tree
     → Painting the render tree
 
-### Browser
+## Browser
 
 The browser\'s functionality is to present the web resource you choose,
 by requesting it from the server and displaying it in the browser
@@ -558,7 +561,7 @@ The components of the browsers are:
     Browsers also support storage mechanisms such as localStorage,
     IndexedDB, WebSQL and FileSystem.
 
-### HTML parsing
+## HTML parsing
 
 The rendering engine starts getting the contents of the requested
 document from the networking layer. This will usually be done in 8kB
@@ -609,7 +612,7 @@ executed after the document is parsed. The document state is set to
 Note there is never an \"Invalid Syntax\" error on an HTML page.
 Browsers fix any invalid content and go on.
 
-### CSS interpretation
+## CSS interpretation
 
 -   Parse CSS files, `<style>` tag contents, and `style` attribute
     values using [\"CSS lexical and syntax
@@ -620,7 +623,7 @@ Browsers fix any invalid content and go on.
 -   A CSS parser can be top-down or bottom-up when a specific parser
     generator is used.
 
-### Page Rendering
+## Page Rendering
 
 -   Create a \'Frame Tree\' or \'Render Tree\' by traversing the DOM
     nodes, and calculating the CSS style values for each node.
@@ -656,7 +659,7 @@ Browsers fix any invalid content and go on.
     the GPU for asynchronous rendering and the frame is sent to the
     window server.
 
-### GPU Rendering
+## GPU Rendering
 
 -   During the rendering process the graphical computing layers can use
     general purpose `CPU` or the graphical processor `GPU` as well.
@@ -665,9 +668,9 @@ Browsers fix any invalid content and go on.
     advantage of `GPU` massive parallelism for float point calculations
     required for the rendering process.
 
-### Window Server
+## Window Server
 
-### Post-rendering and user-induced execution
+## Post-rendering and user-induced execution
 
 After rendering has completed, the browser executes JavaScript code as a
 result of some timing mechanism (such as a Google Doodle animation) or

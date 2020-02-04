@@ -1,3 +1,6 @@
+---
+title: GnuPG
+---
 # [GnuPG](https://wiki.archlinux.org/index.php/GnuPG)
 
 ## Usage

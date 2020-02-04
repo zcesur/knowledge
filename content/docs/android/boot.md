@@ -1,3 +1,6 @@
+---
+Title: Boot
+---
 ## Get the tools
 ```
 git clone https://github.com/zcesur/mkbootimg

@@ -1,3 +1,6 @@
+---
+Title: Fish
+---
 ## Command line editor
 
 ### Shared bindings

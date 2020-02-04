@@ -1,3 +1,6 @@
+---
+Title: CLI Tools
+---
 ### heimdall
 ```
 heimdall detect

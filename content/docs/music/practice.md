@@ -1,3 +1,6 @@
+---
+Title: Practice
+---
 ## Melody
 ### Arpeggios
 * [5 Ways You Need To Know And Practice Your Arpeggios](https://www.youtube.com/watch?v=p2sPvPHo7j8)

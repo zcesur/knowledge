@@ -1,3 +1,6 @@
+---
+Title: Theory
+---
 ## Links
 
 ### Modes

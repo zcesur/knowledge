@@ -1,3 +1,6 @@
+---
+Title: Functional Programming
+---
 ## Links
 
 ### Free Monad + Interpreter Pattern
