@@ -23,5 +23,5 @@
 * [Adding Chords to Single Note Lines - Part 1](https://www.youtube.com/watch?v=W_HtIFFZ2F4)
 * [Adding Chords to Single Note Lines - Part 2](https://www.youtube.com/watch?v=60wKCkb3j9k)
 
-## Guitar
+## Miscellaneous
 * [Fretboard Visualization](https://www.youtube.com/watch?v=REfktHlrBSI)
