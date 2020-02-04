@@ -1,3 +1,10 @@
 languageCode = "en-us"
 title = "Knowledge Base"
 theme = "book"
+
+enableGitInfo = true
+
+[params]
+  BookRepo = 'https://github.com/zcesur/knowledge'
+  BookEditPath = 'edit/master/content'
+  BookDateFormat = 'Jan 2, 2006'
