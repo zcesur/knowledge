@@ -14,14 +14,29 @@ while IFS= read -r line || [[ -n "$line" ]]; do
 done
 ```
 
-### grep/sed/awk
+### sed
+Now, proceed with a sed dry run. The sed option -n is a synonym for --quiet and the p at the very end of the sed expression will print the current pattern space.
 ```
-grep -InH 'pattern' <file
-sed -n 's/pattern/&/p' <file
+$ find . -exec sed -n 's/term1/term2/gp' {} \;
 ```
+
+You can do the task without a loop using GNU parallel Install parallel:
+
+```
+parallel sed -i.old s/example/{.}/ {} ::: *.conf
+```
+This is especially useful if you have a lot of files to edit, as parallel runs one job per CPU core.
+
+-i.old means: edit the file in-place and make a backup adding the .old extension to the original filename (remove .old if you don't want a backup, but remember you don't have a backup then)
+s/example/{.}/g means substitute example with the input filename without its extension ({.}) and do it globally (= to every occurence)
+{} is replaced with the input filename
+::: separates the command to run from the arguments to pass to it
+*.conf matches every .conf file in the current directory
 
 ### ffmpeg
 ```
+ffmpeg -i input -c:v libx265 -crf 28 -c:a aac -b:a 128k output.mp4
+
 chunks=$(
     find . -name '*.ts' -print0 |
         sort -z |
@@ -58,10 +73,16 @@ gpg --import signing_key.pub
 gpg --verify signed_file.sig
 ```
 
+* Release the passwords
+```
+echo RELOADAGENT | gpg-connect-agent
+```
+
 ### git
 ```
 git submodule add $repo $path
 git submodule foreach git pull origin master
+git log --oneline | nl
 ```
 
 ### tar
@@ -180,20 +201,6 @@ rsync src remote:dst
 x11vnc -display :0
 ```
 
-### heimdall
-```
-heimdall detect
-heimdall print-pit --verbose
-heimdall download-pit --output android.pit
-heimdall flash --RECOVERY recovery.img
-heimdall flash --BOOT boot.img --verbose
-```
-
-### adb
-```
-echo -n 'mtp,adb' > /data/property/persist.sys.usb.config
-```
-
 ### gcloud
 ```
 gcloud config set project $project_id
@@ -234,4 +241,14 @@ kubectl port-forward $pod 3000:3000
 for node in $(kubectl get nodes | awk '/gke-cluster/ {print $1}'); do
     kubectl get node $node -o json | grep --count "sizeBytes"
 done
+```
+
+### netstat
+```
+netstat -tunaplz
+```
+
+### nc
+```
+nc -vz $remote $port
 ```

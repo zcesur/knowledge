@@ -22,6 +22,12 @@ iptables -t nat -L --line-numbers
 iptables -t nat -D $chain $rulenum
 ```
 
+### socat - Multipurpose relay (SOcket CAT)
+* Port forwarding
+```
+socat TCP-LISTEN:8080,fork TCP:127.0.0.1:3443
+```
+
 ### [ssh](https://wiki.archlinux.org/index.php/OpenSSH) - OpenSSH SSH client (remote login program)
 > Secure Shell is a network protocol that allows data to be exchanged over a secure channel between two computers. Encryption provides confidentiality and integrity of data. SSH uses public-key cryptography to authenticate the remote computer and allow the remote computer to authenticate the user, if necessary.
 >

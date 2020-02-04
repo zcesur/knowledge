@@ -1,12 +1,12 @@
-# Concepts
+## Concepts
 
-## Storage
+### Storage
 
-### [Volumes](https://kubernetes.io/docs/concepts/storage/volumes/)
+#### [Volumes](https://kubernetes.io/docs/concepts/storage/volumes/)
 
 On-disk files in a Container are ephemeral, which presents some problems for non-trivial applications when running in Containers. First, when a Container crashes, kubelet will restart it, but the files will be lost - the Container starts with a clean state. Second, when running Containers together in a Pod it is often necessary to share files between those Containers. The Kubernetes `Volume` abstraction solves both of these problems.
 
-### [Persistent Volumes](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
+#### [Persistent Volumes](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
 
 Managing storage is a distinct problem from managing compute. The `PersistentVolume` subsystem provides an API for users and administrators that abstracts details of how storage is provided from how it is consumed. To do this we introduce two new API resources: `PersistentVolume` and `PersistentVolumeClaim`.
 
@@ -16,10 +16,10 @@ A `PersistentVolumeClaim` (PVC) is a request for storage by a user. It is simila
 
 While `PersistentVolumeClaims` allow a user to consume abstract storage resources, it is common that users need `PersistentVolumes` with varying properties, such as performance, for different problems. Cluster administrators need to be able to offer a variety of `PersistentVolumes` that differ in more ways than just size and access modes, without exposing users to the details of how those volumes are implemented. For these needs there is the StorageClass resource.
 
-# Tasks
+## Tasks
 
-## Configure Pods and Containers
+### Configure Pods and Containers
 
-### [Configure a Pod to Use a ConfigMap](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/)
+#### [Configure a Pod to Use a ConfigMap](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/)
 
 ConfigMaps allow you to decouple configuration artifacts from image content to keep containerized applications portable.

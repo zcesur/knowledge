@@ -1,4 +1,4 @@
-# Cluster Architecture
+## Cluster Architecture
 
 * [Cluster Architecture | Kubernetes Engine | Google Cloud](https://cloud.google.com/kubernetes-engine/docs/concepts/cluster-architecture)
 * [Kubernetes Comic | Kubernetes Engine | Google Cloud](https://cloud.google.com/kubernetes-engine/kubernetes-comic/)
@@ -13,10 +13,10 @@
 >
 > A **node pool** is a subset of node instances within a cluster that all have the same configuration. When you create a container cluster, the number and type of nodes that you specify becomes the default node pool. Then, you can add additional custom node pools of different sizes and types to your cluster. All nodes in any given node pool are identical to one another.
 
-# Networking
+## Networking
 
 * [Configuring Domain Names with Static IP Addresses | Kubernetes Engine Tutorials | Google Cloud](https://cloud.google.com/kubernetes-engine/docs/tutorials/configuring-domain-name-static-ip)
-## Load Balancing
+### Load Balancing
 
 * [Overview of Load Balancing | Load Balancing | Google Cloud](https://cloud.google.com/load-balancing/docs/load-balancing-overview)
 * [Setting up HTTP Load Balancing with Ingress | Kubernetes Engine Tutorials | Google Cloud](https://cloud.google.com/kubernetes-engine/docs/tutorials/http-balancer)
@@ -28,15 +28,15 @@
 > 2. You can create **HTTP(S) load balancers** by using an [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) resource. HTTP(S) load balancers are designed to terminate HTTP(S) requests and can make better context-aware load balancing decisions. They offer features like customizable URL maps and TLS termination. GKE automatically configures health checks for HTTP(S) load balancers.
 
 
-# Datastore
-### Consistency
+## Datastore
+#### Consistency
 
 * [Balancing Strong and Eventual Consistency with Google Cloud Datastore | Cloud Datastore Documentation | Google Cloud](https://cloud.google.com/datastore/docs/articles/balancing-strong-and-eventual-consistency-with-google-cloud-datastore/)
 
 > **Eventual consistency** is a theoretical guarantee that, provided no new updates to an entity are made, all reads of the entity will eventually return the last updated value. The Internet Domain Name System (DNS) is a well-known example of a system with an eventual consistency model. DNS servers do not necessarily reflect the latest values but, rather, the values are cached and replicated across many directories over the Internet. It takes a certain amount of time to replicate modified values to all DNS clients and servers. However, the DNS system is a very successful system that has become one of the foundations of the Internet. It is highly available and has proven to be extremely scalable, enabling name lookups to over a hundred million devices across the entire Internet.
 >
 > In contrast, traditional relational databases have been designed based on the concept of **strong consistency**, also called immediate consistency. This means that data viewed immediately after an update will be consistent for all observers of the entity. This characteristic has been a fundamental assumption for many developers who use relational databases. However, to have strong consistency, developers must compromise on the scalability and performance of their application. Simply put, data has to be locked during the period of update or replication process to ensure that no other processes are updating the same data.
-### Modeling Hierarchical Data
+#### Modeling Hierarchical Data
 > 1. If you need to do transactional updates on an entire tree, and you're not going to have more than about 1QPS of sustained updates to any one tree, you can use the built in support for heirarchial storage. When creating an entity, you can pass the "parent" attribute to specify a parent entity or key, and when querying, you can use the .ancestor() method (or 'ANCESTOR IS' in GQL to retrieve all descendants of a given entity.
 > 
 > 2. If you don't need transactional updates, you can replicate the functionality of entity groups without the contention issues (and transaction safety): Add a db.ListProperty(db.Key) to your model called 'ancestors', and populate it with the list of ancestors of the object you're inserting. Then you can easily retrieve everything that's descended from a given ancestor with MyModel.all().filter('ancestors =', parent_key).
@@ -47,7 +47,7 @@
 * [Modeling Hierarchical Data - Google Groups](http://groups.google.co.jp/group/google-appengine/browse_thread/thread/879cfff68bf9ab3f/)
 * [Re: storing and rendering comment threads - Google Groups](https://groups.google.com/forum/#!topic/google-appengine/Vm1Rv4B64wE)
 
-# Storage
+## Storage
 
 * [Creating Instances | Cloud Firestore Documentation | Google Cloud](https://cloud.google.com/filestore/docs/creating-instances)
 * [Mounting Fileshares on Compute Engine Clients | Cloud Firestore Documentation | Google Cloud](https://cloud.google.com/filestore/docs/mounting-fileshares)

@@ -1,92 +1,92 @@
-# Programs
-## /
-#### /bin
+## Programs
+### /
+##### /bin
 Essential command executable (binaries) for all users (e.g., cat, ls, cp) 
 (especially files required to boot or rescue the system)
-#### /sbin
+##### /sbin
 System administrative binaries (e.g., init, route, ifup) (system binaries) 
 (files required to boot or rescue the system)
-#### /lib
+##### /lib
 Libraries essential for the binaries in /bin/ and /sbin/ 
 (library required to boot or rescue the system)
 
-## /usr
+### /usr
 Secondary hierarchy for shareable, read-only data (formerly from UNIX source repository, now from **U**NIX **s**ystem **r**esources) 
 (files that are not-required to boot or rescue the system)
-#### /usr/bin/
+##### /usr/bin/
 Same as for top-level hierarchy
-#### /usr/include/
+##### /usr/include/
 Standard include files
-#### /usr/lib/
+##### /usr/lib/
 Same as for top-level hierarchy
-#### /usr/sbin/
+##### /usr/sbin/
 Same as for top-level hierarchy
-#### /usr/share/
+##### /usr/share/
 Architecture-independent (shared) data
 
-## /usr/local
+### /usr/local
 Tertiary hierarchy for local data installed by the system administrator
-#### /usr/local/bin
+##### /usr/local/bin
 locally compiled binaries, local shell script, etc.
-#### /usr/local/src
+##### /usr/local/src
 Source code (place where to extract and build non debian'ized stuffs)
 
-## /opt
+### /opt
 Add-on application software packages. Pre-compiled, non ".deb" binary distribution (tar'ed..) goes here.
 
 ---
 
-# System
-## /boot
+## System
+### /boot
 Boot loader, kernels and initrd files
 
-## /proc
+### /proc
 Virtual filesystem documenting kernel and process status, mostly text files (e.g., uptime, network)
 
-## /sys
+### /sys
 The filesystem for exporting kernel objects.
 (many /proc/* files should have been here...)
 
-## /dev
+### /dev
 devices files (e.g., :/dev/null)
 
 ---
 
-# Data
-## /etc
+## Data
+### /etc
 Host-specific system-wide configuration files (from et cetera)
-#### /etc/opt
+##### /etc/opt
 Configuration files for add-on packages that are stored in /opt.
 
-## /tmp
+### /tmp
 Temporary files
 
-## /srv
+### /srv
 Site-specific data which is served by the system
 
-## /var
+### /var
 **Var**iable data, such as logs, databases, websites, and temporary spool (e-mail..) files
-#### /var/lib
+##### /var/lib
 State information. Persistent data modified by programs as they run, e.g., databases, packaging system metadata, etc.
-#### /var/lock
+##### /var/lock
 Lock files. Files keeping track of resources currently in use.
-#### /var/log
+##### /var/log
 Log files. Various logs.
-#### /var/mail
+##### /var/mail
 Mailbox files. In some distributions, these files may be located in the deprecated /var/spool/mail.
-#### /var/opt
+##### /var/opt
 Variable data from add-on packages that are stored in /opt.
-#### /var/run
+##### /var/run
 Run-time variable data. This directory contains system information data describing the system since it was booted.
 Run-time variable data. This directory contains system information data describing the system since it was booted.
-#### /var/spool
+##### /var/spool
 Spool for tasks waiting to be processed, e.g., print queues and outgoing mail queue.
-#### /var/tmp
+##### /var/tmp
 Temporary files to be preserved between reboots.
 
 ---
 
-# Filesystem Hierarchy Standard
+## Filesystem Hierarchy Standard
 Directory | Description
 --- | ---
 / | Primary hierarchy root and root directory of the entire file system hierarchy.

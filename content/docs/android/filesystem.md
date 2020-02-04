@@ -2,7 +2,7 @@
 
 ---
 
-## 1\. PARTITION TABLE
+## 1. Partition Table
 The **Phone's Internal Memory eMMC** (not the SD card) is solid-state (flash) memory, aka NAND. Raw NAND, as it's called, is basically a pure flash memory dependent on CPU to control it. But in order to use flash memory just like a traditional hard drive (block device), NAND is equipped with an (embedded multimedia) micro-controller. It's called eMMC.  
 eMMC can be partitioned much like a hard drive on PC. PC's have traditionally been partitioned with BIOS compatible **Master Boot Record (MBR)** scheme in which first sector of disk contains the details of partitions called Partition Table. Limited size of boot sector (512 bytes) puts a limitation of at maximum 4 (primary) partitions listed in MBR. Extended partition has been used for 4+ partitions.  
 **GUID Partition Table (GPT)** was introduced with UEFI booting system which isn't dependent on first boot sector and hence may contain up to 128 partitions.  
@@ -18,11 +18,11 @@ To view partition table on internal memory:
 
 _(The external **SD Card** can also be partitioned to include a section dedicated to storing user apps (Link2SD) or to create partitions for secondary or tertiary OS on Android device using some multiboot kernel and recovery system). Even we can [put whole OS/ROM on an SD card.](https://forum.xda-developers.com/android/help/how-to-boot-sd-card-qmobile-z8-bricked-t3712171)_  
   
-## 2\. BRIEF INTRO
+## 2. Brief Intro
 Contents of Android partitions can be partially or completely modified by flashing an image (filesystem .img or executable binary or a flashable zip) to them. But we never need to modify most of them and whatever manufacturer wrote on them, resides there unmodified (read-only) for the whole of device life. A user uses only one partition /data to save personal data like photos, music etc. All the other are for device to run. There are typically in the range of 20 to 40 or even more partitions on an Android device but only a few partitions are modified for the purpose of adding new features or upgrading the device. A custom ROM or minor upgrade is also limited to modify /boot, /system and /data partitions usually. Most of the partitions are almost intact, containing bootloaders, firmwares, settings etc. Here is a "summarized" detail to these partitions which matter to a common but interested user.  
 On most devices /system and /data are larger partitions (on some devices /custom too) covering almost 90% of eMMC. All others are smaller ones of a few KB's or MB's.  
   
-## 3\. SoC / CHIPSET / PROCESSORS RELATED PARTITIONS
+## 3. SoC / Chipset / Processors Related Partitions
 SoC is the first component when we start a PC or Mobile phone which initialzes hardware and processors and loads bootloaders in memory to bootstrap OS. It's an integrated chip containing multiple things e.g. CPU, GPU, modem, wifi etc. It varies for device manufacturers and SoC vendors (chipset plus processor).  
 Some partitions are specific to SoC, most of them are closed-source executable binary blobs including aboot, sbl, rpm, tz, cmnlib, devcfg, keymaster, lksecapp and others, loaded step-by-step by bootloaders.  
   
@@ -38,7 +38,7 @@ This is not a separate partition, but a part of the ROM and is like a driver for
 **DSP (Digital Signal Processor)** - by Qualcomm to assist in things like smooth video playback (realtime media and sensors processor)  
 **HYP (Hypervisor)** - Virtual Machine Monitor, to enable Virtual Machine platform  
   
-## 4\. BOOTLOADERS
+## 4. Bootloaders
 Bootloaders - in many steps - hand over charge to kernel after loading in RAM. These are mostly standalone ELF executable files becuase at this stage no filesystem is loaded and only executable code may work. These are all closed source components on Android device, provided by SoC vendors - either built-in or as binary blobs.  
 **SBL** - Secondary bootloader loaded by SoC, loads ABOOT in memory, also provides (Emergency) Download Mode (EDL) on many devices, a Firmware Update Protocol.  
 **ABOOT** (bootloader.img or aboot.mbn file in Factory Firmware) - Applications Bootloader is the main bootloader responsible for loading kernel or recovey and fastboot - a Firmware Update Protocol - as well.  
@@ -46,7 +46,7 @@ Bootloaders - in many steps - hand over charge to kernel after loading in RAM. T
   
 Read **[ANDROID BOOT PROCESS](https://forum.xda-developers.com/android/general/info-boot-process-android-vs-linux-t3785254)** to know more about bootloaders.  
   
-## 5\. CORE AOSP PARTITIONS
+## 5. Core AOSP Partitions
 **BOOT** - Kernel and initramfs (modern form of of ramdisk and ramfs/tmpfs)  
 A kernel is a layer of code that allows the OS and applications to interface with your phone's hardware. The degree to which you can access your phone's hardware features depends on the quality of code in the kernel. Several kernel code improvements give us additional features from our hardware that the stock kernel does not. When you flash a custom ROM, you automatically get a kernel. But you can also flash a standalone kernel on top of the existing one, effectively overwriting it. These days, the difference in custom kernels is less about new features and more about alternate configurations. Choosing a custom kernel is basically choosing one that works best with your ROM.  
 **Device Tree Blob (DTB)**, along with hardware drivers, are baked with kernel source in boot.img. DTB is loaded by bootloader at boot time and passed to kernel so that it can discover hardware and create node points accordingly.  
@@ -106,7 +106,7 @@ Recovery is also the most commonly used method to flash custom ROM's.
   
 **CACHE** - cached (frequently accessed) data from OS usage and contains the firmware update package downloaded from server during OTA updates. Temporary holding area used by a few applications with the expectation that files can disappear at any time. Major use is by recovery and OTA updates. Recovery last\_log is also written to this partition.  
   
-## 6\. OTHER PARTITIONS
+## 6. Other Partitions
 **CUST** - also **CUSTOM** or **PRELOAD** on some devices, it's used by stock ROM's, holding some preloaded system apps and regional settings which are installed on first use.  
   
 **MISC** - also **FOTA** on older devices  
@@ -147,7 +147,7 @@ PARAM - stores a number of parameters, variables and settings of the hardware. I
 **MSADP, APDP, DPO** - related to debug policies  
 **GROW** - empty for future expansion  
   
-## 7\. FILESYSTEMS
+## 7. Filesystems
 Supported filesystems by your kernel can be viwewd by:  
 
 ```console
@@ -184,7 +184,7 @@ These filesystems don't rely on a physical persistent storage but just live in R
   
 **[FILESYSTEM TREE MOUNTED BY INIT: ANDROID vs. LINUX](https://forum.xda-developers.com/showpost.php?p=75905976&postcount=3)**  
   
-## 8\. Factory Firmware and Flashable ROMs:
+## 8. Factory Firmware and Flashable ROMs:
 When you flash a custom ROM, that ROM typically includes a kernel and an OS. That means the /boot and /system partitions will be modified at a minimum. Some ROMs require a clean install, so a format of the /data and /cache partitions is sometimes built into the .zip that you flash. This is essentially doing a **Factory Reset**.  
 Read [here](https://forum.xda-developers.com/android/help/adb-fastboot-commands-bootloader-kernel-t3597181) to know more about flashing partitions.  
 Factory Firmware contains original iamge files of almsot all important partitions. It's provided by OEM's, usually as a package which also incude a flasher software for PC. Or a general flasher software may be uses such as QFIL.  
