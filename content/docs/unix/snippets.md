@@ -36,21 +36,6 @@ s/example/{.}/g means substitute example with the input filename without its ext
 ::: separates the command to run from the arguments to pass to it
 *.conf matches every .conf file in the current directory
 
-### ffmpeg
-```
-ffmpeg -i input -c:v libx265 -crf 28 -c:a aac -b:a 128k output.mp4
-
-chunks=$(
-    find . -name '*.ts' -print0 |
-        sort -z |
-        sed -e 's/\x0$//' |
-        sed -e 's/\x0/|/g'
-)
-ffmpeg -i "concat:$chunks" -c copy output.ts
-
-ffmpeg -v error -i input.ts -f null - 2>error.log
-```
-
 ### ssh
 ```
 ssh -P port user@host
